@@ -51,7 +51,7 @@ export class $WebSocket {
         if (!match) {
             throw new Error('Invalid url provided');
         }
-        this.config = Object.assign({ initialTimeout: 500, maxTimeout: 300000, reconnectIfNotNormalClose: false }, config);
+        this.config = Object.assign({ initialTimeout: 500, maxTimeout: 300000000, reconnectIfNotNormalClose: false }, config);
         this.binaryType = binaryType || 'blob';
         this.dataStream = new Subject();
         this.errorMessages = new Subject();
@@ -279,14 +279,14 @@ export class $WebSocket {
 
     reconnect() {
         this.close(true, true);
-        let backoffDelay = this.getBackoffDelay(++this.reconnectAttempts);
+//         let backoffDelay = this.getBackoffDelay(++this.reconnectAttempts);
         // let backoffDelaySeconds = backoffDelay / 1000;
         // console.log('Reconnecting in ' + backoffDelaySeconds + ' seconds');
         setTimeout(() => {
             if (this.config.reconnectIfNotNormalClose) {
                 this.connect()
             }
-        }, backoffDelay);
+        }, 2000);
         return this;
     }
 
